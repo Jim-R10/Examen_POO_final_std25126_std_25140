@@ -31,6 +31,16 @@ public class CashFlowRepository {
         return executeQuery(sql, type);
     }
 
+    public List<CashFlow> findByUserId(String userId) {
+        String sql = "SELECT * FROM cash_flow WHERE user_id = ?";
+        return executeQuery(sql, userId);
+    }
+
+    public List<CashFlow> findByUserIdAndType(String userId, String type) {
+        String sql = "SELECT * FROM cash_flow WHERE user_id = ? AND type = ?";
+        return executeQuery(sql, userId, type);
+    }
+
     private List<CashFlow> executeQuery(String sql, String... params) {
         List<CashFlow> result = new ArrayList<>();
 
