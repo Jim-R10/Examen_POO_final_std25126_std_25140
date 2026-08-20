@@ -1,12 +1,10 @@
 package Controller;
 
+import DTO.BalanceDTO;
 import Model.CashFlow;
 import Service.CashFlowService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +20,11 @@ public class CashFlowController {
 
     @GetMapping("/users/{userId}/cash-flows")
     public List<CashFlow> getListCashFlows(@PathVariable String userId, @RequestParam(required = false) String type) {
-        return cashFlowService.getListCashFlows(userId,type);
+        return cashFlowService.getListCashFlows(userId, type);
+    }
+
+    @GetMapping("/balance")
+    public BalanceDTO getBalance(@RequestParam(required = false) String userId) {
+        return cashFlowService.calculateBalance(userId);
     }
 }
