@@ -83,4 +83,5 @@ public class CashFlowRepository {
 
         throw new IllegalStateException("Type inconnu en base: " + type);
     }
+
 }
