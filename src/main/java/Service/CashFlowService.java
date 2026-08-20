@@ -2,15 +2,28 @@ package Service;
 
 import Model.CashFlow;
 import Repository.CashFlowRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class CashFlowService {
-    public final CashFlowRepository cashFlowRepository;
+    private final CashFlowRepository cashFlowRepository;
 
+    public CashFlowService(CashFlowRepository cashFlowRepository) {
+        this.cashFlowRepository = cashFlowRepository;
+    }
+
+    public List<CashFlow> findByType(String type) {
+
+        if (type == null) {
+            return cashFlowRepository.findAll();
+        }
+
+        if (!type.equalsIgnoreCase("donation") && !type.equalsIgnoreCase("expense")) {
+            throw new IllegalArgumentException("Type inconnu: " + type);
+        }
+
+        return cashFlowRepository.findByType(type.toLowerCase());
+    }
 }
